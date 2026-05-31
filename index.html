@@ -134,6 +134,63 @@ footer{
         transform:translateY(-120vh);
     }
 }
+    #cakeSection{
+    margin-top:30px;
+}
+
+.cake{
+    width:220px;
+    height:120px;
+    background:#ff9fc0;
+    margin:20px auto;
+    border-radius:15px;
+    position:relative;
+    box-shadow:0 10px 20px rgba(0,0,0,.1);
+}
+
+.cake::before{
+    content:'';
+    width:220px;
+    height:35px;
+    background:white;
+    position:absolute;
+    top:25px;
+    left:0;
+}
+
+.candle{
+    width:12px;
+    height:50px;
+    background:white;
+    position:absolute;
+    left:50%;
+    top:-45px;
+    transform:translateX(-50%);
+}
+
+.flame{
+    width:18px;
+    height:25px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-20px;
+    left:-3px;
+    animation:flicker .3s infinite;
+}
+
+@keyframes flicker{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(.9);}
+}
+
+#wishMessage{
+    margin-top:20px;
+    color:#ff4f8b;
+    font-size:22px;
+    font-weight:bold;
+}
 </style>
 </head>
 
@@ -157,29 +214,48 @@ footer{
 <!-- HALAMAN 2 -->
 <section id="page2">
 
-    <div class="slider">
-        <img id="slideImage"
-             src="images/foto1.jpg"
-             class="hero-photo">
+<div class="slider">
+    <img id="slideImage"
+         src="images/foto1.jpg"
+         class="hero-photo">
+</div>
+
+<div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<h3>Happy Birthday Inn ❤️</h3>
+
+<!-- KUE ULANG TAHUN -->
+<div id="cakeSection">
+
+    <div class="cake">
+
+        <div class="candle">
+            <div id="flame" class="flame"></div>
+        </div>
+
     </div>
 
-    <div class="dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
+    <button id="blowBtn">
+        🎂 Tiup Lilin
+    </button>
 
-    <h3>Happy Birthday Inn ❤️</h3>
+</div>
 
-    <div id="message"></div>
+<div id="wishMessage"></div>
 
-    <footer>
-        💕 Love, Ann 💕
-    </footer>
+<div id="message"></div>
+
+<footer>
+    💕 Love, Anugrah 💕
+</footer>
 
 </section>
 
@@ -262,7 +338,52 @@ function changePhoto(){
 }
 
 setInterval(changePhoto,3000);
+document.getElementById("blowBtn").addEventListener("click",()=>{
 
+    document.getElementById("flame").style.display="none";
+
+    document.getElementById("wishMessage").innerHTML =
+    "🎉 Selamat Ulang Tahun Inn ❤️<br>Semoga semua harapanmu terkabul 🎂💕";
+
+    createConfetti();
+});
+
+function createConfetti(){
+
+    for(let i=0;i<100;i++){
+
+        const confetti =
+        document.createElement("div");
+
+        confetti.innerHTML = "🎉";
+
+        confetti.style.position = "fixed";
+
+        confetti.style.left =
+        Math.random()*100 + "vw";
+
+        confetti.style.top = "-20px";
+
+        confetti.style.fontSize =
+        (Math.random()*20+15)+"px";
+
+        document.body.appendChild(confetti);
+
+        const speed =
+        Math.random()*3000+2000;
+
+        confetti.animate([
+            {transform:'translateY(0)'},
+            {transform:'translateY(110vh)'}
+        ],{
+            duration:speed
+        });
+
+        setTimeout(()=>{
+            confetti.remove();
+        },speed);
+    }
+}
 /* animasi hati */
 
 function createHeart(){
